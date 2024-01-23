@@ -39,7 +39,7 @@ const chart = new Chart(ctx, {
             label: 'Finances',
             data: [],   // Currency per second values for the Y-axis
             fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            borderColor: 'rgb(0, 128, 0)',
             pointRadius: 0,
             tension: 0.1
         }]
@@ -58,6 +58,11 @@ const chart = new Chart(ctx, {
         }
     }
 });
+
+function toggleNightMode() {
+    const clickerContainer = document.getElementById('clicker-container');
+    clickerContainer.classList.toggle('night-mode');
+}
 
 
 // Function to update button states based on currency
@@ -98,7 +103,9 @@ setInterval(() => {
     updateButtonStates();
 
     // Update Chart
-    updateChart();
+    if (new Date().getSeconds() % 5 === 0) {
+        updateChart();
+    }
 
 }, 1000);
 

@@ -1,22 +1,49 @@
 body {
-    font-family: Arial, sans-serif;
+    transition: background-color 0.5s ease; /* Smooth transition for background color */
+    background-color: #f5f5f5; /* Default background color */
+    color: black; /* Default text color */
+}
+
+body.night-mode {
+    background-color: #333; /* Dark background color */
+    color: #ffffffc5; /* Light text color */
 }
 
 #clicker-container {
     max-width: 400px;
     margin: 50px auto;
     text-align: center;
+    background-color: white; /* Light background color for the container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s; /* Add transition for container background color */
+}
+
+.night-mode #clicker-container {
+    background-color: #333; /* Night mode background color for the container */
 }
 
 button {
     padding: 10px;
     margin: 5px;
+    transition: background-color 0.5s; /* Add transition for button background color */
 }
 
-#currency-container {
-    margin-top: 20px;
+#click-button,
+#night-mode-button,
+#buy-item,
+#buy-generator,
+#buy-big-clicker {
+    background-color: #fff; /* Default button background color */
+    color: #333; /* Default button text color */
+}
+
+.night-mode button {
+    background-color: #444; /* Night mode button background color */
+    color: #fff; /* Night mode button text color */
 }
 
 p {
-    margin: 5px 0;
+    margin: 5px 0; 
 }
