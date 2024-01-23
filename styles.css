@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#clicker-container {
+    max-width: 400px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+}
+
+#currency-container {
+    margin-top: 20px;
+}
+
+p {
+    margin: 5px 0;
+}
