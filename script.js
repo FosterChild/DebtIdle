@@ -2,32 +2,31 @@
 let currency = 500;
 let currencyPerSecond = 0;
 
-let itemCost = 25;
-let itemsOwned = 0;
-let itemEfficiency = 1;
+let lemonadeStandCost = 25;
+let lemonadeStandCount = 0;
+let lemonadeStandEfficiency = 1;
 
-let generatorCost = 50;
-let generatorCount = 0;
-let generatorEfficiency = 2;
+let dropshipCost = 50;
+let dropshipCount = 0;
+let dropshipEfficiency = 2;
 
-let bigClickerCost = 100;
-let bigClickerCount = 0;
-let bigClickerEfficiency = 4;
-
+let partTimeJobCost = 100;
+let partTimeJobCount = 0;
+let partTimeJobEfficiency = 4;
 
 // DOM Elements
 const currencyCountElement = document.getElementById('currency-count');
 const currencyPerSecondElement = document.getElementById('currency-per-second');
 const clickButton = document.getElementById('click-button');
-const itemButton = document.getElementById('buy-item');
-const itemCountElement = document.getElementById('item-count');
-const itemCostElement = document.getElementById('item-cost');
-const generatorButton = document.getElementById('buy-generator');
-const generatorCostElement = document.getElementById('generator-cost');
-const generatorCountElement = document.getElementById('generator-count');
-const bigClickerButton = document.getElementById('buy-big-clicker');
-const bigClickerCostElement = document.getElementById('big-clicker-cost');
-const bigClickerCountElement = document.getElementById('big-clicker-count');
+const lemonadeStandButton = document.getElementById('buy-item');
+const lemonadeStandCountElement = document.getElementById('item-count');
+const lemonadeStandCostElement = document.getElementById('item-cost');
+const dropshipButton = document.getElementById('buy-generator');
+const dropshipCostElement = document.getElementById('generator-cost');
+const dropshipCountElement = document.getElementById('generator-count');
+const partTimeJobButton = document.getElementById('buy-big-clicker');
+const partTimeJobCostElement = document.getElementById('big-clicker-cost');
+const partTimeJobCountElement = document.getElementById('big-clicker-count');
 
 // Create the initial chart instance
 const ctx = document.getElementById('currencyChart').getContext('2d');
@@ -36,7 +35,7 @@ const chart = new Chart(ctx, {
     data: {
         labels: [],  // Timestamp labels for the X-axis
         datasets: [{
-            label: 'Finances',
+            label: 'Net Worth',
             data: [],   // Currency per second values for the Y-axis
             fill: false,
             borderColor: 'rgb(0, 128, 0)',
@@ -64,27 +63,26 @@ function toggleNightMode() {
     clickerContainer.classList.toggle('night-mode');
 }
 
-
 // Function to update button states based on currency
 function updateButtonStates() {
-    // Check if the player can afford an item and update UI
-    if (currency >= itemCost) {
-        itemButton.removeAttribute('disabled');
+    // Check if the player can afford a lemonade stand and update UI
+    if (currency >= lemonadeStandCost) {
+        lemonadeStandButton.removeAttribute('disabled');
     } else {
-        itemButton.setAttribute('disabled', 'true');
+        lemonadeStandButton.setAttribute('disabled', 'true');
     }
 
-    // Check if the player can afford a generator and update UI
-    if (currency >= generatorCost && itemsOwned >= 10) {
-        generatorButton.removeAttribute('disabled');
+    // Check if the player can afford a dropship and update UI
+    if (currency >= dropshipCost && lemonadeStandCount >= 10) {
+        dropshipButton.removeAttribute('disabled');
     } else {
-        generatorButton.setAttribute('disabled', 'true');
+        dropshipButton.setAttribute('disabled', 'true');
     }
 }
 
 // Function to update currency per second display
 function updateCurrencyPerSecond() {
-    const newCurrencyPerSecond = itemsOwned * itemEfficiency + generatorCount * generatorEfficiency;
+    const newCurrencyPerSecond = lemonadeStandCount * lemonadeStandEfficiency + dropshipCount * dropshipEfficiency;
     if (newCurrencyPerSecond !== currencyPerSecond) {
         currencyPerSecond = newCurrencyPerSecond;
         currencyPerSecondElement.textContent = currencyPerSecond.toFixed(1);
@@ -121,23 +119,23 @@ clickButton.addEventListener('click', () => {
     updateButtonStates();
 });
 
-// ITEM CODE
-itemButton.addEventListener('click', () => {
-    // Deduct the cost of the item
-    currency -= itemCost;
+// LEMONADE STAND CODE
+lemonadeStandButton.addEventListener('click', () => {
+    // Deduct the cost of the lemonade stand
+    currency -= lemonadeStandCost;
 
-    // Increase the item count and update the item cost
-    itemsOwned++;
-    itemCost = itemCost * 1.1;
+    // Increase the lemonade stand count and update the cost
+    lemonadeStandCount++;
+    lemonadeStandCost = lemonadeStandCost * 1.1;
 
-    if(itemsOwned == 15){
-        itemEfficiency *= 2;
+    if(lemonadeStandCount == 15){
+        lemonadeStandEfficiency *= 2;
     }
 
     // Update UI
     currencyCountElement.textContent = currency.toFixed(1);
-    itemCountElement.textContent = itemsOwned;
-    itemCostElement.textContent = itemCost.toFixed(1);
+    lemonadeStandCountElement.textContent = lemonadeStandCount;
+    lemonadeStandCostElement.textContent = lemonadeStandCost.toFixed(1);
 
     // Update currency per second display
     updateCurrencyPerSecond();
@@ -145,23 +143,23 @@ itemButton.addEventListener('click', () => {
     updateButtonStates();
 });
 
-// GENERATOR CODE
-generatorButton.addEventListener('click', () => {
-    // Deduct the cost of the generator
-    currency -= generatorCost;
+// DROPSHIP CODE
+dropshipButton.addEventListener('click', () => {
+    // Deduct the cost of the dropship
+    currency -= dropshipCost;
 
-    // Increase the generator count
-    generatorCount++;
-    generatorCost = generatorCost * 1.2;
+    // Increase the dropship count
+    dropshipCount++;
+    dropshipCost = dropshipCost * 1.2;
 
-    if(generatorEfficiency == 15){
-        generatorEfficiency *= 2;
+    if(dropshipEfficiency == 15){
+        dropshipEfficiency *= 2;
     }
 
     // Update UI
     currencyCountElement.textContent = currency.toFixed(1);
-    generatorCostElement.textContent = generatorCost.toFixed(1);
-    generatorCountElement.textContent = generatorCount;
+    dropshipCostElement.textContent = dropshipCost.toFixed(1);
+    dropshipCountElement.textContent = dropshipCount;
 
     // Update currency per second display
     updateCurrencyPerSecond();
@@ -169,23 +167,23 @@ generatorButton.addEventListener('click', () => {
     updateButtonStates();
 });
 
-// BIG CLICKER CODE
-bigClickerButton.addEventListener('click', () => {
-    // Deduct the cost of the big clicker
-    currency -= bigClickerCost;
+// PART TIME JOB CODE
+partTimeJobButton.addEventListener('click', () => {
+    // Deduct the cost of the part-time job
+    currency -= partTimeJobCost;
 
-    // Increase the big clicker count
-    bigClickerCount++;
-    bigClickerCost = bigClickerCost * 1.2;
+    // Increase the part-time job count
+    partTimeJobCount++;
+    partTimeJobCost = partTimeJobCost * 1.2;
 
-    if(bigClickerEfficiency == 15){
-        bigClickerEfficiency *= 2;
+    if(partTimeJobEfficiency == 15){
+        partTimeJobEfficiency *= 2;
     }
 
     // Update UI
     currencyCountElement.textContent = currency.toFixed(1);
-    bigClickerCostElement.textContent = bigClickerCost.toFixed(1);
-    bigClickerCountElement.textContent = bigClickerCount;
+    partTimeJobCostElement.textContent = partTimeJobCost.toFixed(1);
+    partTimeJobCountElement.textContent = partTimeJobCount;
 
     // Update currency per second display
     updateCurrencyPerSecond();
@@ -209,8 +207,6 @@ function updateChart() {
     // Update the chart without animation
     chart.update({ duration: 0 });
 }
-
-
 
 // Initial button states
 updateButtonStates();

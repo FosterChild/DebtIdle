@@ -39,7 +39,12 @@ button {
     color: #333; /* Default button text color */
 }
 
-.night-mode button {
+/* Night mode button styles */
+.night-mode #clicker-container #click-button,
+.night-mode #clicker-container #night-mode-button,
+.night-mode #clicker-container #buy-item,
+.night-mode #clicker-container #buy-generator,
+.night-mode #clicker-container #buy-big-clicker {
     background-color: #444; /* Night mode button background color */
     color: #fff; /* Night mode button text color */
 }
