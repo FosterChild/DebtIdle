@@ -1,18 +1,18 @@
 // Variables
-let currency = 500;
+let currency = 0;
 let currencyPerSecond = 0;
 
-let lemonadeStandCost = 25;
+let lemonadeStandCost = 10;
 let lemonadeStandCount = 0;
 let lemonadeStandEfficiency = 1;
 
-let dropshipCost = 50;
+let dropshipCost = 100;
 let dropshipCount = 0;
-let dropshipEfficiency = 2;
+let dropshipEfficiency = 5;
 
-let partTimeJobCost = 100;
+let partTimeJobCost = 500;
 let partTimeJobCount = 0;
-let partTimeJobEfficiency = 4;
+let partTimeJobEfficiency = 10;
 
 // DOM Elements
 const currencyCountElement = document.getElementById('currency-count');
@@ -73,16 +73,23 @@ function updateButtonStates() {
     }
 
     // Check if the player can afford a dropship and update UI
-    if (currency >= dropshipCost && lemonadeStandCount >= 10) {
+    if (currency >= dropshipCost) {
         dropshipButton.removeAttribute('disabled');
     } else {
         dropshipButton.setAttribute('disabled', 'true');
+    }
+
+    if (currency >= partTimeJobCost) {
+        partTimeJobButton.removeAttribute('disabled');
+    } else {
+        partTimeJobButton.setAttribute('disabled', 'true');
     }
 }
 
 // Function to update currency per second display
 function updateCurrencyPerSecond() {
-    const newCurrencyPerSecond = lemonadeStandCount * lemonadeStandEfficiency + dropshipCount * dropshipEfficiency;
+    const newCurrencyPerSecond = lemonadeStandCount * lemonadeStandEfficiency + dropshipCount * dropshipEfficiency +
+        partTimeJobCount * partTimeJobEfficiency;
     if (newCurrencyPerSecond !== currencyPerSecond) {
         currencyPerSecond = newCurrencyPerSecond;
         currencyPerSecondElement.textContent = currencyPerSecond.toFixed(1);
@@ -101,7 +108,7 @@ setInterval(() => {
     updateButtonStates();
 
     // Update Chart
-    if (new Date().getSeconds() % 5 === 0) {
+    if (new Date().getSeconds() % 3 === 0) {
         updateChart();
     }
 
@@ -126,7 +133,7 @@ lemonadeStandButton.addEventListener('click', () => {
 
     // Increase the lemonade stand count and update the cost
     lemonadeStandCount++;
-    lemonadeStandCost = lemonadeStandCost * 1.1;
+    lemonadeStandCost = lemonadeStandCost * 1.15;
 
     if(lemonadeStandCount == 15){
         lemonadeStandEfficiency *= 2;
@@ -150,7 +157,7 @@ dropshipButton.addEventListener('click', () => {
 
     // Increase the dropship count
     dropshipCount++;
-    dropshipCost = dropshipCost * 1.2;
+    dropshipCost = dropshipCost * 1.15;
 
     if(dropshipEfficiency == 15){
         dropshipEfficiency *= 2;
@@ -174,9 +181,9 @@ partTimeJobButton.addEventListener('click', () => {
 
     // Increase the part-time job count
     partTimeJobCount++;
-    partTimeJobCost = partTimeJobCost * 1.2;
+    partTimeJobCost = partTimeJobCost * 1.15;
 
-    if(partTimeJobEfficiency == 15){
+    if(partTimeJobCount == 15){
         partTimeJobEfficiency *= 2;
     }
 

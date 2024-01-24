@@ -2,6 +2,11 @@ body {
     transition: background-color 0.5s ease; /* Smooth transition for background color */
     background-color: #f5f5f5; /* Default background color */
     color: black; /* Default text color */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Align content to the far left and far right */
+    align-items: center; /* Center items vertically */
+    height: 100vh; /* Set height to 100% of the viewport height */
+    margin: 0; /* Remove default body margin */
 }
 
 body.night-mode {
@@ -9,42 +14,42 @@ body.night-mode {
     color: #ffffffc5; /* Light text color */
 }
 
-#clicker-container {
-    max-width: 400px;
-    margin: 50px auto;
-    text-align: center;
+#clicker-container,
+#scrollable-upgrades {
+    width: 400px; /* Set width for both containers */
     background-color: white; /* Light background color for the container */
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.5s; /* Add transition for container background color */
 }
 
-.night-mode #clicker-container {
+.night-mode #clicker-container,
+.night-mode #scrollable-upgrades {
     background-color: #333; /* Night mode background color for the container */
+}
+
+#clicker-container {
+    height: calc(100vh - 40px); /* Adjust padding by subtracting it from the viewport height */
+    padding: 20px;
+}
+
+#scrollable-upgrades {
+    height: calc(100vh - 40px);
+    overflow-y: auto; /* Enable vertical scrollbar if content exceeds height */
+    padding: 20px;
 }
 
 button {
     padding: 10px;
     margin: 5px;
     transition: background-color 0.5s; /* Add transition for button background color */
-}
-
-#click-button,
-#night-mode-button,
-#buy-item,
-#buy-generator,
-#buy-big-clicker {
     background-color: #fff; /* Default button background color */
     color: #333; /* Default button text color */
 }
 
 /* Night mode button styles */
-.night-mode #clicker-container #click-button,
-.night-mode #clicker-container #night-mode-button,
-.night-mode #clicker-container #buy-item,
-.night-mode #clicker-container #buy-generator,
-.night-mode #clicker-container #buy-big-clicker {
+.night-mode #clicker-container button,
+.night-mode #items-container button {
     background-color: #444; /* Night mode button background color */
     color: #fff; /* Night mode button text color */
 }
